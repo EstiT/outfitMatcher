@@ -20,7 +20,6 @@ mongoose.connect('mongodb://localhost/yardAndGarage', { useNewUrlParser: true, u
 var index = require('./routes/index');
 var users = require('./routes/users');
 var checkout = require('./routes/checkout');
-var dashboard = require('./routes/dashboard');
 
 
 // PayPal Configuration
@@ -106,7 +105,6 @@ app.use(function(req, res, next){
 app.use('/', index);
 app.use('/users', users);
 app.use('/checkout', checkout);
-app.use('/dashboard', dashboard);
 
 
 // catch 404 and forward to error handler

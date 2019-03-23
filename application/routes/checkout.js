@@ -4,7 +4,6 @@ var paypal                  = require('paypal-rest-sdk');
 var Cart                    = require('../models/cart');
 var Product                 = require('../models/product');
 var Variant                 = require('../models/variant');
-var Order                   = require('../models/order');
 var Department              = require('../models/department');
 var Discount                = require('../models/discount');
 

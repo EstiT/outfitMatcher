@@ -3,7 +3,6 @@ var router        = express.Router();
 var Product       = require('../models/product');
 var Variant       = require('../models/variant');
 var Cart          = require('../models/cart');
-var Order         = require('../models/order');
 var Department    = require('../models/department');
 
 /////////////////////////////////////////////////////////////////////
@@ -238,29 +237,6 @@ router.get('/shopping-bag', ensureAuthenticated, function(req, res, next){
     let cart = new Cart(req.session.cart ? req.session.cart : {});
     res.render('shoppingBag', {items: cart.generateArray(), totalPrice: cart.totalPrice, containerWrapper: 'container'})
   }
-});
-
-/////////////////////////////////////////////////////////////////////
-//
-// MIDDLEWARE - Handles GET requests to the oreder history page
-//
-// Renders orderHistory.hbs with available data from database 
-//
-/////////////////////////////////////////////////////////////////////
-router.get('/order-history', ensureAuthenticated, function(req, res, next){
-  Order.find({"username": req.user.username }, function(e, order)
-  {
-    if (e)
-    {
-      console.log("Failed on router.get('/order-history')\nError:".error, e.message.error + "\n")
-      e.status = 406; next(e);
-      
-    }
-    else
-    {
-      res.render('orderHistory', { title: 'Products', orders: order})
-    }
-  });
 });
 
 /////////////////////////////////////////////////////////////////////

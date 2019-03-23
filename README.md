@@ -1,2 +1,6 @@
 # outfitMatcher
-recommend outfits based on previous selections. Use association rules 
+Recommend outfits based on previous selections. Uses association rules.
+
+Components 
+- crawler (Eclipse Java project)
+- application (server and front end)

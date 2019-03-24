@@ -17,16 +17,6 @@ router.get('/login', function(req, res){
     res.render('login', { title: 'Login', bodyClass: 'registration'});
 });
 
-/////////////////////////////////////////////////////////////////////
-//
-// MIDDLEWARE - Handles GET requests to the signin page
-//
-// Renders signin page
-//
-/////////////////////////////////////////////////////////////////////
-router.get('/signin', function(req, res){
-    res.render('signin', { title: 'Signin', bodyClass: 'registration'});
-});
 
 /////////////////////////////////////////////////////////////////////
 //

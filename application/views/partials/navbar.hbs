@@ -1,30 +1,5 @@
 <!-- Header starts -->
 <header class="site-header {{customNavbar}}">
-  {{#if user.admin}}
-  <nav class="navbar-black navbar-fixed-top navbar-inside">
-    <div class="container">
-      <style>
-        .general-navbar{
-          top:34px;
-        }
-        .site-header {
-            display: block;
-            min-height: 90px;
-        }
-      </style>
-      <!-- Brand and toggle get grouped for better mobile display -->
-      <div class="admin-header">
-        <div class="navbar-form navbar-left">
-          Welcome Admin  
-        </div>
-        <div class="navbar-form navbar-right">
-        </div>
-      </div>
-
-      </div><!-- /.navbar-collapse -->
-    </div><!-- /.container-fluid -->
-  </nav>
-  {{/if}}
 
   <nav class="navbar navbar-default navbar-fixed-top navbar-inside general-navbar">
       <div class="container">
@@ -36,7 +11,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="/" id="navbar-logo"><img src="/images/logo.png"></a>
+          <a class="navbar-brand" href="/" id="navbar-logo"><img src="/images/logo3.png"></a>
         </div>
     
         <!-- Collect the nav links, forms, and other content for toggling -->
@@ -45,7 +20,7 @@
             <input type="text" hidden id="navbar-list-items" value="{{session.department}}">
             <form class="navbar-form navbar-left" role="search" method="post" action="/search" >
               <div class="form-group">
-                <input autocomplete="off" type="text" class="form-control searchbox-textfield border-around" name="query" onkeyup="showResults(this.value)" placeholder="Search for product or category">
+                <input autocomplete="off" type="text" class="form-control searchbox-textfield border-around" name="query" onkeyup="showResults(this.value)" placeholder="Search for product or category" size="35">
               </div>
               <button type="submit" class="btn btn-primary search-button-top"><i class="fa fa-search" aria-hidden="true"></i></button>
               <div class="product-search-wrapper">
@@ -55,7 +30,7 @@
           </div>
           <ul class="nav navbar-nav navbar-right" id="main-navbar">
             <li><a href="/">All Products</a></li>
-            <li><a href="/shopping-bag"><i class="fa fa-shopping-basket" aria-hidden="true"></i> Shopping Bag <span class="badge">{{session.cart.totalQty}}</span></a></li>
+            <li><a href="/shopping-bag"><i class="fa fa-shopping-basket" aria-hidden="true"></i> Bag <span class="badge">{{session.cart.totalQty}}</span></a></li>
             <li class="dropdown user-info">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Hello, {{user.fullname}}<span class="caret"></span></a>
               <ul class="dropdown-menu custom-navbar-dropdown">

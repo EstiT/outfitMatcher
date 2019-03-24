@@ -21,17 +21,8 @@ var productSchema  = mongoose.Schema({
     category: {
         type: String
     },
-    price: {
-        type: Number
-    },
     color: {
         type: String
-    },
-    size: {
-        type: String
-    },
-    quantity: {
-        type: Number
     }
 });
 

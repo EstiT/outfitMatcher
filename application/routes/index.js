@@ -31,6 +31,18 @@ router.get('/', ensureAuthenticated, function(req, res, next)
   });
 });
 
+// TODO move to own group file
+router.get('/group', ensureAuthenticated, function(req, res, next)
+{
+  // TODO
+  console.log('in group request');
+  let cart = new Cart(req.session.cart ? req.session.cart : {});
+  var items = cart.generateArray();
+  req.session.cart = {};
+  res.redirect('/');
+
+});
+
 /////////////////////////////////////////////////////////////////////
 //
 // MIDDLEWARE - Handles GET requests to the product overview page

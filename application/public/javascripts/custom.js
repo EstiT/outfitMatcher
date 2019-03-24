@@ -4,20 +4,9 @@
 // This is for change variant on the product overview page. Whenever you click a variant
 // I am passing the all the information I need then placing them properly according to
 // arguments.
-function changeVariant(imagePath, color, size, id, qty) 
+function changeVariant(imagePath, color, size, id) 
 {
-    if (qty < 1)
-    {
-        document.getElementById("inventory-buy").style.display = "none";
-        document.getElementById("soldout").style.display = "block";
-    }
-    else
-    {
-        document.getElementById("inventory-buy").style.display = "block";
-        document.getElementById("soldout").style.display = "none";
-    }
     document.getElementById("add-to-bag-link").href = "/add-to-bag/" + id;
-    document.getElementById("buy-now-link").href = "/checkout/buy-now/" + id;
     document.getElementById("product-color").innerHTML = (color) ? color : "Default"
     document.getElementById("p-img").src = imagePath
     if(size == "")

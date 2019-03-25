@@ -18,13 +18,16 @@
 
 package crawler;
 
-import java.util.Set;
+import java.io.BufferedOutputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.URL;
 
-import org.bson.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-import db.MongoDB;
 import edu.uci.ics.crawler4j.crawler.Page;
 import edu.uci.ics.crawler4j.crawler.WebCrawler;
 import edu.uci.ics.crawler4j.parser.HtmlParseData;
@@ -43,19 +46,7 @@ public class BasicCrawler extends WebCrawler {
     @Override
     public boolean shouldVisit(Page referringPage, WebURL url) {
         String href = url.getURL().toLowerCase();
-        
-        //visit images 
-        if(Constants.IMAGE_EXTENSIONS.matcher(href).matches() && href.startsWith("https://estit.github.io/")) {
-        	return true;
-        }
-        
-        // Ignore the url if it has an extension that matches our defined set of image extensions.
-        if (Constants.IMAGE_EXTENSIONS.matcher(href).matches()) {
-            return false;
-        }
-
-        // Only accept the url if it is in the "www.ics.uci.edu" domain and protocol is "http".
-        return href.startsWith(Constants.STORE_URL);
+        return href.startsWith(Constants.STORE_URL_BASE);
     }
 
     /**
@@ -64,7 +55,6 @@ public class BasicCrawler extends WebCrawler {
      */
     @Override
     public void visit(Page page) {
-    	
         int docid = page.getWebURL().getDocid();
         String url = page.getWebURL().getURL();
         System.out.println("Visiting "+url);
@@ -73,41 +63,48 @@ public class BasicCrawler extends WebCrawler {
         if (page.getParseData() instanceof HtmlParseData) {
             HtmlParseData htmlParseData = (HtmlParseData) page.getParseData();
             html = htmlParseData.getHtml();
-            Set<WebURL> links = htmlParseData.getOutgoingUrls();
-
-            System.out.println("\nNumber of outgoing links: "+ links.size());
         }
         
 		org.jsoup.nodes.Document document = org.jsoup.Jsoup.parse(html);
 		
-		String imgSelector	= "img[src~=(?i)\\.(png|jpe?g|gif)]";	
-		Elements images	= document.select(imgSelector);	
+		Elements prodList = document.select("ul.products-listing");
+		Elements images	= prodList.select("img.item-image");	
+		getImages(images, Integer.toString(docid));
 		
-		String txtSelector	= "p,h1,h2,h3";//,h1,h2,h3,h4	
-		Elements text = document.select(txtSelector);	
-		
-		//insert image 
-		Document doc = new Document("images", getImages(images))
-				.append("text", getText(text));//TODO?
-		
-		MongoDB.getInstance().insertImage(doc);
     }
     
-
-    
-    public String getImages(Elements images) {
-    	String s = "";
+  
+    public void getImages(Elements images, String docId) {
+    	int i = 0;
     	for(Element img : images) {
-    		s += img.attr("src")+ "  alt: " + img.attr("alt") + "  width: " + img.attr("width") + "  eight: " + img.attr("height");
+    		String src = "https:"+img.attr("src");
+    		try {
+				saveImage(src, docId+Integer.toString(i));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+    		i++;
+    		if(i>=5) {
+    			break;
+    		}
     	}
-    	return s;
     }
     
-    public String getText(Elements text) {
-    	String s = "";
-    	for(Element el : text) {
-    		s += el.text() + " ";
+    
+//    https://examples.javacodegeeks.com/enterprise-java/html/download-images-from-a-website-using-jsoup/
+    private static void saveImage(String src, String docId) throws IOException { 
+    	try {
+    		URL url = new URL(src);
+    		InputStream in = url.openStream();
+    		OutputStream out = new BufferedOutputStream(new FileOutputStream(Constants.IMAGE_PATH+docId+".png"));
+    		for (int b; (b = in.read()) != -1;) {
+    			out.write(b);
+    		}
+    	    out.close();
+    	    in.close();
+    	} catch(Exception e) {
+//    		die quietly...
+//    		e.printStackTrace();
     	}
-    	return s;
     }
 }

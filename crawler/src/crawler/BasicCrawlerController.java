@@ -58,6 +58,8 @@ public class BasicCrawlerController {
         int numberOfCrawlers = 10;
 
         CrawlConfig config = new CrawlConfig();
+        config.setIncludeHttpsPages(true);
+        config.setUserAgentString("Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.36");
 
         config.setCrawlStorageFolder(Constants.DATA_DIRECTORY);
 
@@ -65,19 +67,19 @@ public class BasicCrawlerController {
      * Be polite: Make sure that we don't send more than 1 request per
      * second (1000 milliseconds between requests).
      */
-        config.setPolitenessDelay(10000);
+        config.setPolitenessDelay(10);
 
     /*
      * You can set the maximum crawl depth here. The default value is -1 for
      * unlimited depth
      */
-        config.setMaxDepthOfCrawling(4);
+        config.setMaxDepthOfCrawling(20);
 
     /*
      * You can set the maximum number of pages to crawl. The default value
      * is -1 for unlimited number of pages
      */
-        config.setMaxPagesToFetch(10);
+        config.setMaxPagesToFetch(12);
 
         /**
          * Do you want crawler4j to crawl also binary data ?
@@ -124,14 +126,23 @@ public class BasicCrawlerController {
      * URLs that are fetched and then the crawler starts following links
      * which are found in these pages
      */
-        controller.addSeed(Constants.STORE_URL);
+        controller.addSeed("https://www2.hm.com/en_ca/women/shop-by-product/dresses.html");
+        controller.addSeed("https://www2.hm.com/en_ca/women/shop-by-product/shirts-and-blouses.html");
+        controller.addSeed("https://www2.hm.com/en_ca/women/shop-by-product/dresses.html");
+        controller.addSeed("https://www2.hm.com/en_ca/women/shop-by-product/trousers.html");
+        controller.addSeed("https://www2.hm.com/en_ca/men/shop-by-product/t-shirts-and-tank-tops.html");
+        controller.addSeed("https://www2.hm.com/en_ca/men/shop-by-product/hoodies-and-sweatshirts.html");
+        controller.addSeed("https://www2.hm.com/en_ca/men/shop-by-product/view-all.html");
+        controller.addSeed("https://www2.hm.com/en_ca/men/shop-by-product/pants.html");
 
     /*
      * Start the crawl. This is a blocking operation, meaning that your code
      * will reach the line after this only when crawling is finished.
      */
-        
-        
+        controller.start(BasicCrawler.class, numberOfCrawlers);
+        if(controller.isFinished()) {
+        	System.out.println("done");
+        }
 
     }
 

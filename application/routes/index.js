@@ -147,7 +147,7 @@ router.get('/add-to-bag/:id', ensureAuthenticated, function(req, res, next){
           cart.add(product, product.id);
           cart.userId = req.user._id;
           req.session.cart = cart;
-          res.redirect('/');
+          res.redirect('/product-overview/'+productId);
         }
         else
         {

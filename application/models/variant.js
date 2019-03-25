@@ -15,17 +15,8 @@ var variantSchema  = mongoose.Schema({
     color: {
         type: String
     },
-    size: {
-        type: String
-    },
-    quantity: {
-        type: Number
-    },
     title: {
         type: String
-    },
-    price: {
-        type: Number
     }
 });
 

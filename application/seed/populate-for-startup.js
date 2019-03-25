@@ -105,6 +105,21 @@ function insertCategories(callback)
         }),
         new Category({
             categoryName        : 'Jackets'
+        }),
+        new Category({
+            categoryName        : 'Dresses'
+        }),
+        new Category({
+            categoryName        : 'Mens Tops'
+        }),
+        new Category({
+            categoryName        : 'Mens Pants'
+        }),
+        new Category({
+            categoryName        : 'Womens Tops'
+        }),
+        new Category({
+            categoryName        : 'Womens Pants'
         })
     ]
 
@@ -124,12 +139,12 @@ function insertDepartments(callback)
     [
         new Department({
             departmentName      : 'Women',
-            categories          : 'Basics,Blazer'
+            categories          : 'Basics,Blazer,Dresses,Womens Tops,Womens Pants'
 
         }),
         new Department({
             departmentName      : 'Men',
-            categories          : 'Knitwear,Jeans,Jackets'
+            categories          : 'Knitwear,Jeans,Jackets,Mens Tops,Mens Pants'
         })
     ]
 
@@ -154,7 +169,7 @@ function insertProducts(callback)
             description: 'High collar top with short cuffed sleeves. Asymmetric hem with side slits.',
             color: 'Gray',
             department: 'Women',
-            category: 'Basics',
+            category: 'Basics'
         }),
         new Product({
             _id: "5bedf3b9c14d7822b39d9d45",
@@ -163,7 +178,7 @@ function insertProducts(callback)
             description: 'Flowy V-neck camisole with spaghetti straps.',
             color: 'Black',
             department: 'Women',
-            category: 'Basics',
+            category: 'Basics'
         }),
         new Product({
             _id: "5bedf448c14d7822b39d9d47",
@@ -172,7 +187,7 @@ function insertProducts(callback)
             description: 'Round neck long sleeved shirt. ',
             color: 'White',
             department: 'Women',
-            category: 'Basics',
+            category: 'Basics'
         }),
         new Product({
             _id: "5bedf55bc14d7822b39d9d4b",
@@ -181,7 +196,7 @@ function insertProducts(callback)
             description: 'Flowy blazer with lapel collar and long sleeves. Self belt. Chest patch pockets and welt pockets at hip. Front double-breasted button closure.',
             color: 'Black',
             department: 'Women',
-            category: 'Blazer',
+            category: 'Blazer'
         }),
         new Product({
             _id: "5bedf5eec14d7822b39d9d4e",
@@ -190,7 +205,7 @@ function insertProducts(callback)
             description: 'Purl-stitch knit sweater in a combination of textures. Ribbed trim.',
             color: 'Orange',
             department: 'Men',
-            category: 'Knitwear',
+            category: 'Knitwear'
         }),
         new Product({
             _id: "5bedf6b5c14d7822b39d9d51",
@@ -199,7 +214,7 @@ function insertProducts(callback)
             description: 'Slim fit jeans with five pockets, washed effect, and rips on the legs. Zippered hem at in-seams. Front zip and metal button closure.',
             color: 'Dark Blue',
             department: 'Men',
-            category: 'Jeans',
+            category: 'Jeans'
         }),
         new Product({
             _id: "5bedf720c14d7822b39d9d52",
@@ -208,7 +223,7 @@ function insertProducts(callback)
             description: 'Basic slim-fit jeans with five pockets. Two side pockets, two back pockets, and one coin pocket. Belt loops. Front hidden zipper and button closure.',
             color: 'Light Blue',
             department: 'Men',
-            category: 'Jeans',
+            category: 'Jeans'
         }),
         new Product({
             _id: "5bedf7ecc14d7822b39d9d55",
@@ -217,14 +232,338 @@ function insertProducts(callback)
             description: 'Faux leather perforated jacket with high collar and long sleeves. Two front zip pockets. Lined. Interior pocket. Front zip closure. Ribbed elastic hem and cuffs.',
             color: 'Brown',
             department: 'Men',
-            category: 'Jackets',
+            category: 'Jackets'
+        }),
+        new Product({
+            _id: "5c9958192e31bdf4758bc975",
+            imagePath: `/uploads/product1-1.png`,
+            title: 'Sophisticated Turtleneck Sweater',
+            description: 'Soft white sweter with delicate wrist details',
+            color: 'White',
+            department: 'Women',
+            category: 'Womens Tops'
+        }),
+        new Product({
+            _id: "5c995869ab8e97f486e79174",
+            imagePath: `/uploads/10.png`,
+            title: 'T-Shirt Wrap Dress',
+            description: 'Burnt orange t-shirt wrap dress. Comfortable and flatering office wear.',
+            color: 'Orange',
+            department: 'Women',
+            category: 'Dresses'
+        }),
+        new Product({
+            _id: "5c995869ab8e97f486e79175",
+            imagePath: `/uploads/11.png`,
+            title: 'Button Down Smock',
+            description: 'Oversized rustic artists smock.',
+            color: 'Beige',
+            department: 'Women',
+            category: 'Dresses'
+        }),
+        new Product({
+            _id: "5c995896ec223ef48fc670f0",
+            imagePath: `/uploads/12.png`,
+            title: 'Flowy Babydoll Dress',
+            description: 'White sleeveless and pleated babydoll dress.',
+            color: 'White',
+            department: 'Women',
+            category: 'Dresses'
+        }),
+        new Product({
+            _id: "5c995896ec223ef48fc670f1",
+            imagePath: `/uploads/13.png`,
+            title: 'Cut out Animal Print Dress',
+            description: 'Polo collar, open back animal print dress. Curved bottom cut',
+            color: 'Black',
+            department: 'Women',
+            category: 'Dresses'
+        }),
+        new Product({
+            _id: "5c995896ec223ef48fc670f2",
+            imagePath: `/uploads/20.png`,
+            title: 'Animal Print Button Down',
+            description: 'Retro chic with shoulder pads and cuff details.',
+            color: 'Cream',
+            department: 'Women',
+            category: 'Womens Tops'
+        }),
+        new Product({
+            _id: "5c9958c4955057f4978a42f2",
+            imagePath: `/uploads/21.png`,
+            title: 'Not Your Boyfriends Button Down',
+            description: 'Striped oversized blouse with sash detail around the waist.',
+            color: 'Black',
+            department: 'Women',
+            category: 'Womens Tops'
+        }),
+        new Product({
+            _id: "5c9958c4955057f4978a42f3",
+            imagePath: `/uploads/22.png`,
+            title: 'Wrap Genie Bouse',
+            description: 'Elegant mid cut long sleeve wrapped blouse. Elastics around the wrists',
+            color: 'White',
+            department: 'Women',
+            category: 'Womens Tops'
+        }),
+        new Product({
+            _id: "5c9958c4955057f4978a42f4",
+            imagePath: `/uploads/30.png`,
+            title: 'Tweed Dress Pants',
+            description: 'High waisted with a large belt. Large pockets and clean cut creases.',
+            color: 'Beige',
+            department: 'Women',
+            category: 'Womens Pants'
+        }),
+        new Product({
+            _id: "5c9958f5ba93caf49fe1889a",
+            imagePath: `/uploads/31.png`,
+            title: 'Retro Leggings',
+            description: 'Splashed with gold and white. 3/4 leggings.',
+            color: 'Black',
+            department: 'Women',
+            category: 'Womens Pants'
+        }),
+        new Product({
+            _id: "5c9958f5ba93caf49fe1889b",
+            imagePath: `/uploads/32.png`,
+            title: 'Dress Pants',
+            description: 'High waisted.',
+            color: 'Black',
+            department: 'Women',
+            category: 'Womens Pants'
+        }),
+        new Product({
+            _id: "5c9958f5ba93caf49fe1889c",
+            imagePath: `/uploads/33.png`,
+            title: 'Statement 7/8ths Trousers',
+            description: 'Bold constrasting buttons and thick sash.',
+            color: 'White',
+            department: 'Women',
+            category: 'Womens Pants'
+        }),
+        new Product({
+            _id: "5c995921303c4bf4aa9d1e3a",
+            imagePath: `/uploads/40.png`,
+            title: 'Anchor Tee',
+            description: 'Crew neck t-shirt with an anchor pattern.',
+            color: 'Navy Blue',
+            department: 'Men',
+            category: 'Mens Tops'
+        }),
+        new Product({
+            _id: "5c995921303c4bf4aa9d1e3b",
+            imagePath: `/uploads/41.png`,
+            title: 'Classic Tee',
+            description: 'White crew neck basic.',
+            color: 'White',
+            department: 'Men',
+            category: 'Basics'
+        }),
+        new Product({
+            _id: "5c995921303c4bf4aa9d1e3c",
+            imagePath: `/uploads/42.png`,
+            title: 'Graphic Tee',
+            description: 'New York state of mind.',
+            color: 'Black',
+            department: 'Men',
+            category: 'Mens Tops'
+        }),
+        new Product({
+            _id: "5c99599d18f04ef4bc4e6b53",
+            imagePath: `/uploads/43.png`,
+            title: 'Vacation Tee',
+            description: 'Back to sunnier times with this palm tree pattern.',
+            color: 'Black',
+            department: 'Men',
+            category: 'Mens Tops'
+        }),
+        new Product({
+            _id: "5c99599d18f04ef4bc4e6b54",
+            imagePath: `/uploads/50.png`,
+            title: 'Classic Crew Sweater',
+            description: 'Closet staple crew neck for Fall-Winter.',
+            color: 'Navy Blue',
+            department: 'Men',
+            category: 'Knitwear'
+        }),
+        new Product({
+            _id: "5c99599d18f04ef4bc4e6b55",
+            imagePath: `/uploads/51.png`,
+            title: 'Red Sun Sweater',
+            description: 'Red sun front and center. White text.',
+            color: 'Navy Blue',
+            department: 'Men',
+            category: 'Knitwear'
+        }),
+        new Product({
+            _id: "5c99599d18f04ef4bc4e6b56",
+            imagePath: `/uploads/52.png`,
+            title: 'Cozy Graphic Pullover',
+            description: 'Fitted graphic pullover with palm trees.',
+            color: 'White',
+            department: 'Men',
+            category: 'Mens Tops'
+        }),
+        new Product({
+            _id: "5c99599d18f04ef4bc4e6b57",
+            imagePath: `/uploads/53.png`,
+            title: 'Sundown Pullover',
+            description: 'Cozy graphic pullover.',
+            color: 'Grey',
+            department: 'Men',
+            category: 'Mens Tops'
+        }),
+        new Product({
+            _id: "5c99599d18f04ef4bc4e6b58",
+            imagePath: `/uploads/60.png`,
+            title: 'Dress Pants',
+            description: 'Midnight black dress pants.',
+            color: 'Black',
+            department: 'Men',
+            category: 'Mens Pants'
+        }),
+        new Product({
+            _id: "5c99599d18f04ef4bc4e6b59",
+            imagePath: `/uploads/61.png`,
+            title: 'Dress Shirt',
+            description: 'Classic white clean cut button down.',
+            color: 'White',
+            department: 'Men',
+            category: 'Mens Tops'
+        }),
+        new Product({
+            _id: "5c99599d18f04ef4bc4e6b5a",
+            imagePath: `/uploads/62.png`,
+            title: 'Far From Average Day Jeans',
+            description: 'Best denim blue full length.',
+            color: 'Blue',
+            department: 'Men',
+            category: 'Jeans'
+        }),
+        new Product({
+            _id: "5c99599d18f04ef4bc4e6b5b",
+            imagePath: `/uploads/70.png`,
+            title: 'Joggers',
+            description: 'Comfortable joggers with drawstring, knee detailing and cuffed ankles.',
+            color: 'Beige',
+            department: 'Men',
+            category: 'Mens Pants'
+        }),
+        new Product({
+            _id: "5c99599d18f04ef4bc4e6b5c",
+            imagePath: `/uploads/71.png`,
+            title: 'Pants',
+            description: 'Above ankle cut.',
+            color: 'Black',
+            department: 'Men',
+            category: 'Mens Pants'
+        }),
+        new Product({
+            _id: "5c99599d18f04ef4bc4e6b5d",
+            imagePath: `/uploads/72.png`,
+            title: 'Dress Pants',
+            description: 'Plaid meets office wear.',
+            color: 'Grey',
+            department: 'Men',
+            category: 'Mens Pants'
+        }),
+        new Product({
+            _id: "5c99599d18f04ef4bc4e6b5e",
+            imagePath: `/uploads/100.png`,
+            title: 'Button Down Tee',
+            description: 'Short sleeve button down meets old bowling shirt.',
+            color: 'Black',
+            department: 'Men',
+            category: 'Mens Tops'
+        }),
+        new Product({
+            _id: "5c99599d18f04ef4bc4e6b5f",
+            imagePath: `/uploads/101.png`,
+            title: 'Sheer Button Down',
+            description: 'Transparent white collared button down dress shirt.',
+            color: 'White',
+            department: 'Men',
+            category: 'Mens Tops'
+        }),
+        new Product({
+            _id: "5c99599d18f04ef4bc4e6b60",
+            imagePath: `/uploads/110.png`,
+            title: 'Bridesmaids Full Length Dress',
+            description: 'Floral bodice, ribbon sash and pleated skirt.',
+            color: 'Baby Blue',
+            department: 'Women',
+            category: 'Dresses'
+        }),
+        new Product({
+            _id: "5c99599d18f04ef4bc4e6b61",
+            imagePath: `/uploads/111.png`,
+            title: 'Bridesmaids Deep V Dress',
+            description: 'Full length, low cut flowy gown.',
+            color: 'Dark Blue',
+            department: 'Women',
+            category: 'Dresses'
+        }),
+        new Product({
+            _id: "5c99599d18f04ef4bc4e6b62",
+            imagePath: `/uploads/112.png`,
+            title: 'Bridesmaids Shoulder Ruffle Gown',
+            description: 'Soft shoulder details. Matching ruffles along bottom trim',
+            color: 'Lavender',
+            department: 'Women',
+            category: 'Dresses'
+        }),
+        new Product({
+            _id: "5c99599d18f04ef4bc4e6b63",
+            imagePath: `/uploads/113.png`,
+            title: 'Bridesmaids Spaghetti Strap Staple',
+            description: 'Turn heads with this long black number.',
+            color: 'Black',
+            department: 'Women',
+            category: 'Dresses'
+        }),
+        new Product({
+            _id: "5c99599d18f04ef4bc4e6b64",
+            imagePath: `/uploads/120.png`,
+            title: 'Polkadoted Mini Dress',
+            description: 'Tied shoulder detail and buttons in the front.',
+            color: 'Salmon',
+            department: 'Women',
+            category: 'Dresses'
+        }),
+        new Product({
+            _id: "5c99599d18f04ef4bc4e6b65",
+            imagePath: `/uploads/121.png`,
+            title: 'Denim Mini Dress',
+            description: 'Buttons down the front. Large pockets.',
+            color: 'Denim',
+            department: 'Women',
+            category: 'Dresses'
+        }),
+        new Product({
+            _id: "5c99599d18f04ef4bc4e6b66",
+            imagePath: `/uploads/122.png`,
+            title: 'Striped Long Sleeve Dress',
+            description: 'Mini ruffled along neckline and bottom hem.',
+            color: 'Beige',
+            department: 'Women',
+            category: 'Dresses'
+        }),
+        new Product({
+            _id: "5c99599d18f04ef4bc4e6b67",
+            imagePath: `/uploads/123.png`,
+            title: 'Oversized Animal Print Dress',
+            description: 'Long sleeved flowey dress.',
+            color: 'Beige',
+            department: 'Women',
+            category: 'Dresses'
         })
     ];
 
     for (let i = 0; i < products.length; i++){
         products[i].save(function(e, r) {
             if (i === products.length - 1){
-                console.log("Products inserted".green)
+                console.log( products.length + "Products inserted".green)
                 callback();
             }
         });
@@ -238,44 +577,42 @@ function insertVariants(callback)
         new Variant({
             productID: '5bedf31cc14d7822b39d9d43',
             imagePath: `/uploads/7568644710_1_1_1.jpg`,
-            color: 'Beige',
-            size: 'S,L',
-            quantity: 5,
+            color: 'Beige'
         }),
         new Variant({
             productID: '5bedf3b9c14d7822b39d9d45',
             imagePath: `/uploads/5644641735_2_5_1.jpg`,
-            color: 'Copper',
-            size: 'S,L,XL',
-            quantity: 12,
+            color: 'Copper'
         }),
         new Variant({
             productID: '5bedf448c14d7822b39d9d47',
             imagePath: `/uploads/7568469605_2_1_1.jpg`,
-            color: 'Maroon',
-            size: 'XS,M,L',
-            quantity: 4,
+            color: 'Maroon'
         }),
         new Variant({
             productID: '5bedf448c14d7822b39d9d47',
             imagePath: `/uploads/7568469822_2_1_1.jpg`,
-            color: 'Charcool',
-            size: 'XS,L,XL',
-            quantity: 5,
+            color: 'Charcool'
         }),
         new Variant({
             productID: '5bedf5eec14d7822b39d9d4e',
             imagePath: `/uploads/1775300806_2_1_1.jpg`,
-            color: 'Stone',
-            size: 'S,XL',
-            quantity: 35,
+            color: 'Stone'
         }),
         new Variant({
             productID: '5bedf720c14d7822b39d9d52',
             imagePath: `/uploads/5575380407_1_1_1.jpg`,
-            color: 'Dark Blue',
-            size: 'M,XL',
-            quantity: 5,
+            color: 'Dark Blue'
+        }),
+        new Variant({
+            productID: '5c9958c4955057f4978a42f3',
+            imagePath: `/uploads/23.png`,
+            color: 'Moon Blue'
+        }),
+        new Variant({
+            productID: '5c99599d18f04ef4bc4e6b5d',
+            imagePath: `/uploads/73.png`,
+            color: 'Dark Grey'
         })
     ];
 

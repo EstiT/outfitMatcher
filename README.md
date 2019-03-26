@@ -12,7 +12,7 @@ Components
   - set up:
  0. Start MongoDB with terminal command 'mongod'
  1. npm install
- 2. node seed/populate-for-startup.js
+ 2. for f in seed/*.js; do node "$f"; done
  3. npm start
  4. <a href="http://localhost:3000" target="_blank">http://localhost:3000</a>
  5. admin@admin.com / admin

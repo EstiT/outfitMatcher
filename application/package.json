@@ -6,6 +6,7 @@
     "start": "node ./bin/www"
   },
   "dependencies": {
+    "apriori": "^1.0.7",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.3",
     "colour": "^0.7.1",

@@ -13,16 +13,20 @@ var Department    = require('../models/department');
 
 // WASNT FINDING ROUTE D': moved to index
 
-// router.get('/group', function(req, res, next)
-// {
-//   // TODO
-//   console.log('in group');
-//   let cart = new Cart(req.session.cart ? req.session.cart : {});
-//   var items = cart.generateArray();
-//   console.log("in group request");
-//   req.session.cart = {};
-//   res.redirect('/shopping-bag');
-//
-// });
+router.get('/', function(req, res, next)
+{
+  let cart = new Cart(req.session.cart ? req.session.cart : {});
+  var items = cart.generateArray();
+  console.log("in group request");
+
+  // TODO
+  // add cart items to dataset.csv
+
+  // rerun generate-association-rules.js
+
+  req.session.cart = {};
+  res.redirect('/shopping-bag');
+
+});
 
 module.exports = router;

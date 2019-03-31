@@ -7,27 +7,29 @@ var colour              = require('colour');
 
 mongoose.connect('mongodb://localhost/yardAndGarage', { useNewUrlParser: true, useCreateIndex: true, });
 
+function generateRules(){
+  let algo = new Apriori.Algorithm(0.03, 0.3, false);
 
-let algo = new Apriori.Algorithm(0.03, 0.3, false);
+  fs.readFile('seed/dataset.csv', 'utf8', function (err, data) {
+       if (err)
+           throw err;
+       var transactions = ArrayUtils.readCSVToArray(data, ',');
+       var analysisResult = algo.analyze(transactions).associationRules;
 
-fs.readFile('seed/dataset.csv', 'utf8', function (err, data) {
-     if (err)
-         throw err;
-     var transactions = ArrayUtils.readCSVToArray(data, ',');
-     var analysisResult = algo.analyze(transactions).associationRules;
-     // console.log(analysisResult);//JSON.stringify
+       // convert analysisResult to associationRule type
+       var rules = [];
+       for(var i = 0; i<analysisResult.length; i++){
+         rules.push(new AssociationRule({lhs : analysisResult[i].lhs,
+                                           rhs : analysisResult[i].rhs,
+                                    confidence : analysisResult[i].confidence}));
+       }
 
-     // convert analysisResult to associationRule type
-     var rules = [];
-     for(var i = 0; i<analysisResult.length; i++){
-       rules.push(new AssociationRule({lhs : analysisResult[i].lhs,
-                                         rhs : analysisResult[i].rhs,
-                                  confidence : analysisResult[i].confidence}));
-     }
+       deleteRules();
+       insertRules(exit, rules);
+   });
+}
 
-     deleteRules();
-     insertRules(exit, rules);
- });
+
 
 function deleteRules()
 {
@@ -83,3 +85,6 @@ function exit() {
      };
      return ArrayUtils;
  })();
+
+
+ module.exports.generateRules = generateRules;

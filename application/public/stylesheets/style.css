@@ -700,6 +700,13 @@ Shopping Bag page
   font-size: 20px;
   line-height: 0px;
 }
+
+div.border {
+  border-style: double;
+  border-radius: 6px;
+  padding: 1em 1em 1em 1em;
+  border-color: #e7e7e7;
+}
 /*--------------------------------------------------------------
 Search page
 --------------------------------------------------------------*/

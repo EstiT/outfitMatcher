@@ -9,14 +9,30 @@
                 <div class="checkout" width="400px">
                     <a href="/group" class="btn btn-primary">Group!</a>
                 </div>
-                <div class="border">
-                  <p><b>You may also like:</b></p>
-                  <!-- reccomendations go here -->
-                </div>
+                {{#if reccItems}}
+                <!-- reccomendations go here -->
+                  <div class="border">
+                    <p><b>You may also like:</b></p>
+                    <table><tr>
+                      {{#each reccItems}}
+                        <th>
+                          <div style="min-height: 220px;max-height: 220px;">
+                            <a href="/product-overview/{{_id}}">
+                              <img style="min-height: 220px;max-height: 220px;" src="{{imagePath}}">
+                            </a>
+                            <div class="product-title">
+                            <a  href="/product-overview/{{_id}}">{{title}}</a>
+                          </div>
+                          </div>
+                        </th>
+                      {{/each}}
+                    </tr></table>
+                  </div>
+                {{/if}}
             {{else}}
-            <div class="empty-bag">
-                bag is empty
-            </div>
+              <div class="empty-bag">
+                  bag is empty
+              </div>
             {{/if}}
         </div>
     </div>

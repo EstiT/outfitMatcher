@@ -26,3 +26,12 @@ var Rule = module.exports = mongoose.model('AssociationRules', ruleSchema);
 module.exports.getAllRules = function(callback){
     Rule.find(callback)
 }
+
+module.exports.getReleventRules = function(items, callback){
+
+    var ids = [];
+    for(var i = 0; i<items.length; i++){
+      ids.push(items[i].item._id);
+    }
+    Rule.find({lhs: {$in: ids}}, callback);
+}

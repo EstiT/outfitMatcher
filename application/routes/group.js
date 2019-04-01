@@ -18,32 +18,33 @@ router.get('/', function(req, res, next)
   let cart = new Cart(req.session.cart ? req.session.cart : {});
   var items = cart.generateArray();
 
-  // add cart items to dataset.csv
-  var newLine = "\r\n";
-  var csv = "";
 
-  for (var i = 0; i<items.length; i++) {
-    csv += items[i].item._id + ",";
-  }
-  csv = csv.substring(0, csv.length - 1); //remove last comma
-  csv += newLine;
 
-  // https://stackoverflow.com/questions/40725959/how-to-append-new-row-in-exist-csv-file-in-nodejs-json2csv
-  fs.appendFile('seed/dataset.csv', csv, function (err) {
-    if (err){
-      console.log("error");
-      throw err;
+// don't need one item groupings
+  if(items.length > 1){
+    var newLine = "\r\n";
+    var csv = "";
+    for (var i = 0; i<items.length; i++) {
+      csv += items[i].item._id + ",";
     }
-    console.log('New grouping was appended to csv');
+    csv = csv.substring(0, csv.length - 1); //remove last comma
+    csv += newLine;
 
-    // rerun generate-association-rules.js
-    genRules.generateRules();
-  });
+    // add cart items to dataset.csv
+    // https://stackoverflow.com/questions/40725959/how-to-append-new-row-in-exist-csv-file-in-nodejs-json2csv
+    fs.appendFile('seed/dataset.csv', csv, function (err) {
+      if (err){
+        console.log("error");
+        throw err;
+      }
 
-  // empty bag 
-  req.session.cart = {};
-  res.redirect('/shopping-bag');
-
+      // rerun generate-association-rules.js
+      genRules.generateRules();
+    });
+  }
+  // empty bag
+  req.session.cart = new Cart({});
+  res.redirect("/shopping-bag");
 });
 
 module.exports = router;

@@ -1,9 +1,11 @@
-var express       = require('express');
-var router        = express.Router();
-var Product       = require('../models/product');
-var Variant       = require('../models/variant');
-var Cart          = require('../models/cart');
-var Department    = require('../models/department');
+var express           = require('express');
+var router            = express.Router();
+var Product           = require('../models/product');
+var Variant           = require('../models/variant');
+var Cart              = require('../models/cart');
+var Department        = require('../models/department');
+var AssociationRule   = require('../models/associationRule');
+
 
 /////////////////////////////////////////////////////////////////////
 //
@@ -236,9 +238,54 @@ router.get('/shopping-bag', ensureAuthenticated, function(req, res, next){
   else
   {
     let cart = new Cart(req.session.cart ? req.session.cart : {});
-    res.render('shoppingBag', {items: cart.generateArray(), totalPrice: cart.totalPrice, containerWrapper: 'container'})
+    var itemsArr = cart.generateArray();
+    //get rules involving items in the cart
+    AssociationRule.getReleventRules(itemsArr, function(e, asscRules)
+    {
+      if (e)
+      {
+        console.log("Failed on router.get('/shopping-bag')\nError:".error, e.message.error + "\n")
+        e.status = 404; next(e);
+      }
+      else
+      {
+        var itemIDs = [];
+        for(var i = 0; i<asscRules.length; i++){
+          itemIDs.push(asscRules[i].rhs);
+        }
+        itemIDs = arrNoDupe(itemIDs);
+        //get items for rhs ids
+        var reccItems = [];
+        for(var i = 0; i<itemIDs.length; i++){
+          Product.getProductByID(itemIDs[i], function(e, item)
+          {
+            if (e)
+            {
+              console.log("Failed on router.get('/shopping-bag')\nError:".error, e.message.error + "\n")
+              e.status = 404; next(e);
+            }
+            else
+            {
+              reccItems.push(item);
+            }
+          });
+        }
+        res.render('shoppingBag', {items: itemsArr, reccItems: reccItems})
+      }
+    });
   }
 });
+
+// https://stackoverflow.com/questions/6940103/how-do-i-make-an-array-with-unique-elements-i-e-remove-duplicates
+function arrNoDupe(a) {
+    var temp = {};
+    for (var i = 0; i < a.length; i++)
+        temp[a[i]] = true;
+    var r = [];
+    for (var k in temp)
+        r.push(k);
+    return r;
+}
 
 /////////////////////////////////////////////////////////////////////
 //

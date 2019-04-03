@@ -6,6 +6,7 @@ var Cart          = require('../models/cart');
 var Department    = require('../models/department');
 var fs            = require('fs');
 var genRules      = require("../seed/generate-association-rules");
+var mongoose    = require('mongoose');
 
 /////////////////////////////////////////////////////////////////////
 // TODO
@@ -17,8 +18,6 @@ router.get('/', function(req, res, next)
 {
   let cart = new Cart(req.session.cart ? req.session.cart : {});
   var items = cart.generateArray();
-
-
 
 // don't need one item groupings
   if(items.length > 1){
@@ -39,12 +38,20 @@ router.get('/', function(req, res, next)
       }
 
       // rerun generate-association-rules.js
-      genRules.generateRules();
+      mongoose.connect('mongodb://localhost/yardAndGarage', { useNewUrlParser: true, useCreateIndex: true, });
+
+      genRules.generateRules(function(){
+          mongoose.disconnect();
+          // empty bag
+          req.session.cart = new Cart({});
+          res.render('shoppingBag', {items: null, reccItems: []});
+      });
     });
   }
-  // empty bag
-  req.session.cart = new Cart({});
-  res.redirect("/shopping-bag");
+  else{
+    req.session.cart = new Cart({});
+    res.render("shoppingBag");
+  }
 });
 
 module.exports = router;

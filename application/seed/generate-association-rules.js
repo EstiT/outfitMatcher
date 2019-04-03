@@ -5,33 +5,34 @@ var Apriori             = require('apriori');
 var colour              = require('colour');
 
 
-mongoose.connect('mongodb://localhost/yardAndGarage', { useNewUrlParser: true, useCreateIndex: true, });
-
-function generateRules(){
+function generateRules(callback){
   let algo = new Apriori.Algorithm(0.03, 0.3, false);
-
   fs.readFile('seed/dataset.csv', 'utf8', function (err, data) {
-       if (err)
-           throw err;
-       var transactions = ArrayUtils.readCSVToArray(data, ',');
-       var analysisResult = algo.analyze(transactions).associationRules;
-
-       // convert analysisResult to associationRule type
-       var rules = [];
-       for(var i = 0; i<analysisResult.length; i++){
-         rules.push(new AssociationRule({lhs : analysisResult[i].lhs,
-                                           rhs : analysisResult[i].rhs,
-                                    confidence : analysisResult[i].confidence}));
+       if (err){
+         throw err;
        }
+       else{
+         var transactions = ArrayUtils.readCSVToArray(data, ',');
+         var analysisResult = algo.analyze(transactions).associationRules;
 
-       deleteRules();
-       insertRules(exit, rules);
+         // convert analysisResult to associationRule type
+         var rules = [];
+         for(var i = 0; i<analysisResult.length; i++){
+           rules.push(new AssociationRule({lhs : analysisResult[i].lhs,
+                                             rhs : analysisResult[i].rhs,
+                                      confidence : analysisResult[i].confidence}));
+         }
+
+         deleteRules(function(){
+           insertRules(callback, rules);
+         });
+       }
    });
 }
 
 
 
-function deleteRules()
+function deleteRules(callback)
 {
     AssociationRule.deleteMany({}, function(e, result)
     {
@@ -42,6 +43,7 @@ function deleteRules()
         else
         {
             console.log("Rules deleted".red)
+            callback();
         }
     });
 }
@@ -58,9 +60,6 @@ function insertRules(callback, rules)
     }
 }
 
-function exit() {
-    mongoose.disconnect();
-}
 
  var ArrayUtils = (function () {
      function ArrayUtils() {

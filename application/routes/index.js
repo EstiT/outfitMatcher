@@ -233,7 +233,7 @@ router.get('/increase/:id', ensureAuthenticated, function(req,res, next){
 router.get('/shopping-bag', ensureAuthenticated, function(req, res, next){
   if (!req.session.cart)
   {
-    res.render('shoppingBag', {items: null, containerWrapper: 'container'});
+    res.render('shoppingBag', {items: null, reccItems: []});
   }
   else
   {
@@ -244,33 +244,41 @@ router.get('/shopping-bag', ensureAuthenticated, function(req, res, next){
     {
       if (e)
       {
-        console.log("Failed on router.get('/shopping-bag')\nError:".error, e.message.error + "\n")
+        console.log("Failed on router.get('/shopping-bag')");
+        console.log("Error:".error + e.message.error);
         e.status = 404; next(e);
+        res.render('shoppingBag', {items: itemsArr, reccItems: []})
       }
       else
       {
-        var itemIDs = [];
-        for(var i = 0; i<asscRules.length; i++){
-          itemIDs.push(asscRules[i].rhs);
-        }
-        itemIDs = arrNoDupe(itemIDs);
-        //get items for rhs ids
-        var reccItems = [];
-        for(var i = 0; i<itemIDs.length; i++){
-          Product.getProductByID(itemIDs[i], function(e, item)
-          {
-            if (e)
+        if(asscRules.length > 0){
+          var itemIDs = [];
+          for(var i = 0; i<asscRules.length; i++){
+            itemIDs.push(asscRules[i].rhs);
+          }
+          itemIDs = arrNoDupe(itemIDs);
+          //get items for rhs ids
+          var reccItems = [];
+          for(var i = 0; i<itemIDs.length; i++){
+            Product.getProductByID(itemIDs[i], function(e, item)
             {
-              console.log("Failed on router.get('/shopping-bag')\nError:".error, e.message.error + "\n")
-              e.status = 404; next(e);
-            }
-            else
-            {
-              reccItems.push(item);
-            }
-          });
+              if (e)
+              {
+                console.log("Failed on router.get('/shopping-bag')\nError:".error, e.message.error + "\n")
+                e.status = 404; next(e);
+              }
+              else
+              {
+                reccItems.push(item);
+              }
+            });
+          }
+          res.render('shoppingBag', {items: itemsArr, reccItems: reccItems})
+
         }
-        res.render('shoppingBag', {items: itemsArr, reccItems: reccItems})
+        else{ // no reccomendations
+          res.render('shoppingBag', {items: itemsArr, reccItems: []})
+        }
       }
     });
   }

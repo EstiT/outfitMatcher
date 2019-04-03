@@ -5,6 +5,7 @@ var Product     = require('../models/product');
 var Variant     = require('../models/variant');
 var mongoose    = require('mongoose');
 var colour      = require('colour');
+var generateRules = require('../seed/generate-association-rules');
 
 
 //mongoose.connect('mongodb://localhost/shoppingApp');
@@ -663,7 +664,9 @@ function deleteDBEntitites(callback)
                                 {
                                     insertVariants(function()
                                     {
-                                        insertAdmin(callback)
+                                        insertAdmin(function(){
+                                          generateRules.generateRules(callback);
+                                        })
                                     })
                                 })
                             })

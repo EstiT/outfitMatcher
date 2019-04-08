@@ -18,6 +18,7 @@ var AssociationRule   = require('../models/associationRule');
 /////////////////////////////////////////////////////////////////////
 router.get('/', ensureAuthenticated, function(req, res, next)
 {
+  console.log("in /");
   Product.getAllProducts(function(e, products)
   {
     if (e)
@@ -153,7 +154,6 @@ router.get('/add-to-bag/:id', ensureAuthenticated, function(req, res, next){
               Product.findById(variant.productID, function(e, p){
                 let color = (variant.color) ? "- " + variant.color : "";
                 variant.title = p.title + " " + color
-                variant.price = p.price
                 cart.add(variant, variant.id);
                 req.session.cart = cart;
                 res.redirect('/');
@@ -231,8 +231,10 @@ router.get('/increase/:id', ensureAuthenticated, function(req,res, next){
 //
 /////////////////////////////////////////////////////////////////////
 router.get('/shopping-bag', ensureAuthenticated, function(req, res, next){
+  console.log("in /shopping-bag");
   if (!req.session.cart)
   {
+    console.log("no cart 237 render shopping bag")
     res.render('shoppingBag', {items: null, reccItems: []});
   }
   else
@@ -252,11 +254,14 @@ router.get('/shopping-bag', ensureAuthenticated, function(req, res, next){
       else
       {
         if(asscRules.length > 0){
+          console.log("got reccomendations".green);
           var itemIDs = [];
           for(var i = 0; i<asscRules.length; i++){
             itemIDs.push(asscRules[i].rhs);
           }
           itemIDs = arrNoDupe(itemIDs);
+          console.log("itemIDs:");
+          console.log(itemIDs);
           //get items for rhs ids
           var reccItems = [];
           for(var i = 0; i<itemIDs.length; i++){
@@ -277,6 +282,7 @@ router.get('/shopping-bag', ensureAuthenticated, function(req, res, next){
 
         }
         else{ // no reccomendations
+          console.log("no reccomendations".red);
           res.render('shoppingBag', {items: itemsArr, reccItems: []})
         }
       }

@@ -14,8 +14,9 @@ var mongoose    = require('mongoose');
 //
 /////////////////////////////////////////////////////////////////////
 
-router.get('/', function(req, res, next)
+router.get('/', ensureAuthenticated, function(req, res, next)
 {
+  console.log("in grouping");
   let cart = new Cart(req.session.cart ? req.session.cart : {});
   var items = cart.generateArray();
 
@@ -36,22 +37,62 @@ router.get('/', function(req, res, next)
         console.log("error");
         throw err;
       }
+      else{
+        console.log('New grouping was appended to csv');
 
-      // rerun generate-association-rules.js
-      mongoose.connect('mongodb://localhost/yardAndGarage', { useNewUrlParser: true, useCreateIndex: true, });
-
-      genRules.generateRules(function(){
-          mongoose.disconnect();
-          // empty bag
-          req.session.cart = new Cart({});
-          res.render('shoppingBag', {items: null, reccItems: []});
-      });
+        // rerun generate-association-rules.js
+        // mongoose.connect('mongodb://localhost/yardAndGarage', { useNewUrlParser: true, useCreateIndex: true, });
+        mongoose.connect('mongodb://localhost/yardAndGarage', { useNewUrlParser: true, useCreateIndex: true, }, function(err) {
+          if (err){
+            throw err;
+          }
+          else{
+            console.log("connected to mongoose");
+            genRules.generateRules(function(){
+                console.log("call back");
+                mongoose.disconnect(function(err){
+                  if(err){
+                    console.log("could not disconnect");
+                  }
+                  else{
+                    console.log("disconnected");
+                    // empty bag
+                    req.session.cart = new Cart({});
+                    res.render('shoppingBag', {items: [], reccItems: []})
+                    // var itemsArr = req.session.cart.generateArray();
+                    // res.render('shoppingBag', {items: itemsArr, reccItems: []})
+                  }
+                });
+            });
+          }
+        });
+      }
     });
   }
   else{
     req.session.cart = new Cart({});
-    res.render("shoppingBag");
+    // var itemsArr = req.session.cart.generateArray();
+    console.log("58");
+    res.render('shoppingBag', {items: [], reccItems: []})
+    // res.render('shoppingBag', {items: itemsArr, reccItems: []})
   }
+
 });
+
+//FIXME: This is entirely duplicated from index.js
+function ensureAuthenticated(req, res, next){
+  if (req.isAuthenticated())
+  {
+    Department.getAllDepartments(function(e, departments)
+    {
+      req.session.department = JSON.stringify(departments)
+      return next();
+    })
+  }
+  else{
+    //req.flash('error_msg', 'You are not logged in');
+    res.redirect('/users/login');
+  }
+};
 
 module.exports = router;

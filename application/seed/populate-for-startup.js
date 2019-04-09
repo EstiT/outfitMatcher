@@ -8,8 +8,7 @@ var colour      = require('colour');
 var generateRules = require('../seed/generate-association-rules');
 
 
-//mongoose.connect('mongodb://localhost/shoppingApp');
-mongoose.connect('mongodb://localhost/yardAndGarage', { useNewUrlParser: true, useCreateIndex: true, });
+mongoose.connect('mongodb://localhost/outfitMatcher', { useNewUrlParser: true, useCreateIndex: true, });
 
 function deleteVariants(callback)
 {

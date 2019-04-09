@@ -1,8 +1,6 @@
 var AssociationRule     = require('../models/associationRule');
-var mongoose            = require('mongoose');
 var fs                  =  require('fs');
 var Apriori             = require('apriori');
-var colour              = require('colour');
 
 
 function generateRules(callback){

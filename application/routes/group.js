@@ -40,32 +40,12 @@ router.get('/', ensureAuthenticated, function(req, res, next)
       else{
         console.log('New grouping was appended to csv');
 
-        // rerun generate-association-rules.js
-        // mongoose.connect('mongodb://localhost/yardAndGarage', { useNewUrlParser: true, useCreateIndex: true, });
-        mongoose.connect('mongodb://localhost/yardAndGarage', { useNewUrlParser: true, useCreateIndex: true, }, function(err) {
-          if (err){
-            throw err;
-          }
-          else{
-            console.log("connected to mongoose");
-            genRules.generateRules(function(){
-                console.log("call back");
-                mongoose.disconnect(function(err){
-                  if(err){
-                    console.log("could not disconnect");
-                  }
-                  else{
-                    console.log("disconnected");
-                    // empty bag
-                    req.session.cart = new Cart({});
-                    res.render('shoppingBag', {items: [], reccItems: []})
-                    // var itemsArr = req.session.cart.generateArray();
-                    // res.render('shoppingBag', {items: itemsArr, reccItems: []})
-                  }
-                });
-            });
-          }
-        });
+        genRules.generateRules(function(){console.log("GENERATERULES CALLBACK 11")})
+
+        req.session.cart = new Cart({});
+        res.render('shoppingBag', {items: [], reccItems: []})
+        // var itemsArr = req.session.cart.generateArray();
+        // res.render('shoppingBag', {items: itemsArr, reccItems: []})
       }
     });
   }

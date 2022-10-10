@@ -11,7 +11,7 @@
     "body-parser": "^1.18.3",
     "colour": "^0.7.1",
     "connect-flash": "^0.1.1",
-    "connect-mongo": "^2.0.3",
+    "connect-mongo": "^4.6.0",
     "cookie-parser": "^1.4.4",
     "debug": "^2.6.9",
     "express": "^4.16.4",
